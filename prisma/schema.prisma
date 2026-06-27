@@ -3,21 +3,20 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String    @unique
-  password      String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  notes         Note[]
-  sessions      Session[]
-  accounts      Account[]
+  id        String    @id @default(cuid())
+  name      String?
+  email     String    @unique
+  password  String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  notes     Note[]
+  sessions  Session[]
+  accounts  Account[]
 }
 
 model Note {
