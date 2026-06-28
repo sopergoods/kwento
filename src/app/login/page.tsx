@@ -26,11 +26,17 @@ export default function LoginPage() {
           body: JSON.stringify({ name, email, password }),
         });
         const data = await res.json();
-        if (!res.ok) { setError(data.error); setLoading(false); return; }
+        if (!res.ok) {
+          setError(data.error);
+          setLoading(false);
+          return;
+        }
       }
 
       const result = await signIn('credentials', {
-        email, password, redirect: false,
+        email,
+        password,
+        redirect: false,
       });
 
       if (result?.error) {
@@ -39,8 +45,8 @@ export default function LoginPage() {
         return;
       }
 
-      router.push('/');
-      router.refresh();
+      // Force hard navigation instead of soft redirect
+      window.location.href = '/';
     } catch {
       setError('Something went wrong');
       setLoading(false);
@@ -50,15 +56,12 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        {/* Logo */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-zinc-100 tracking-tight">📝 Kwento</h1>
           <p className="text-zinc-500 text-sm mt-2">Your personal notes, anywhere.</p>
         </div>
 
-        {/* Card */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
-          {/* Tabs */}
           <div className="flex bg-zinc-800 rounded-xl p-1 mb-6">
             {(['login', 'register'] as const).map((m) => (
               <button
